@@ -4,6 +4,7 @@ class Peliculas {
   Peliculas();
 
   Peliculas.fromJsonList(List<dynamic> jsonList) {
+    //Si está vacío no regresa nada.
     if (jsonList == null) return;
 
     for (var item in jsonList) {
@@ -61,5 +62,12 @@ class Pelicula {
     adult = json['adult'];
     overview = json['overview'];
     releaseDate = json['relase_date'];
+  }
+
+  getPosterImg() {
+    if (posterPath == null) {
+      return 'https://e-fisiomedic.com/wp-content/uploads/2013/11/default-placeholder.png';
+    }
+    return 'https://images.tmdb.org/t/p/w500/$posterPath';
   }
 }
