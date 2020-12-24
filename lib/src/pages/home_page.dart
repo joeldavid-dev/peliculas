@@ -15,14 +15,16 @@ class HomePage extends StatelessWidget {
           IconButton(icon: Icon(Icons.search), onPressed: null),
         ],
       ),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _swiperTarjetas(),
-            _footer(context),
-          ],
-        ),
+      body: ListView(
+        //children[]: Column(
+        //mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          SizedBox(height: 10),
+          _swiperTarjetas(),
+          SizedBox(height: 10),
+          _footer(context),
+        ],
+        //),
       ),
     );
   }
@@ -59,7 +61,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 5,
+            height: 10,
           ),
           FutureBuilder(
             future: peliculasProvider.getPopulares(),
