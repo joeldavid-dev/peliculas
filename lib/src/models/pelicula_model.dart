@@ -70,4 +70,11 @@ class Pelicula {
     }
     return 'https://images.tmdb.org/t/p/w500/$posterPath';
   }
+
+  getBackgroundImg() {
+    if (posterPath == null) {
+      return 'https://e-fisiomedic.com/wp-content/uploads/2013/11/default-placeholder.png';
+    }
+    return 'https://images.tmdb.org/t/p/w500/$backdropPath';
+  }
 }

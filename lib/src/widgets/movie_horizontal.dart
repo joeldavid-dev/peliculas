@@ -25,9 +25,8 @@ class MovieHorizontal extends StatelessWidget {
     return Container(
       height: _screenSize.height * 0.30,
       child: PageView.builder(
-        pageSnapping: false,
+        pageSnapping: false, // Desactiva la sensacion de iman en el scroll
         controller: _pageController,
-        //children: _tarjetas(context),
         itemCount: peliculas.length,
         itemBuilder: (context, i) => _targeta(context, peliculas[i]),
       ),
@@ -35,7 +34,7 @@ class MovieHorizontal extends StatelessWidget {
   }
 
   Widget _targeta(BuildContext context, Pelicula pelicula) {
-    return Container(
+    final _tarjetaContainer = Container(
       margin: EdgeInsets.only(right: 15),
       child: Column(
         children: [
@@ -57,33 +56,13 @@ class MovieHorizontal extends StatelessWidget {
         ],
       ),
     );
-  }
 
-  //_targetas en desuso
-  List<Widget> _tarjetas(BuildContext context) {
-    return peliculas.map((pelicula) {
-      return Container(
-        margin: EdgeInsets.only(right: 15),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: FadeInImage(
-                image: NetworkImage(pelicula.getPosterImg()),
-                placeholder: AssetImage('assets/img/no-imagen.png'),
-                fit: BoxFit.cover,
-                height: 150,
-              ),
-            ),
-            SizedBox(height: 5.0),
-            Text(
-              pelicula.title,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.caption,
-            ),
-          ],
-        ),
-      );
-    }).toList();
+    return GestureDetector(
+      child: _tarjetaContainer,
+      onTap: () {
+        //Acciones cuando se da clic en una pelicula de Populares
+        Navigator.pushNamed(context, 'detalle', arguments: pelicula);
+      },
+    );
   }
 }

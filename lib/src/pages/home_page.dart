@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:peliculas/src/pages/widgets/card_swiper_widget.dart';
-import 'package:peliculas/src/pages/widgets/movie_horizontal.dart';
+import 'package:peliculas/src/widgets/card_swiper_widget.dart';
+import 'package:peliculas/src/widgets/movie_horizontal.dart';
 import 'package:peliculas/src/providers/peliculas_provider.dart';
+
+//Vista principal de la app.
 
 class HomePage extends StatelessWidget {
   final peliculasProvider = new PeliculasProvider();
@@ -18,15 +20,12 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: ListView(
-        //children[]: Column(
-        //mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           SizedBox(height: 10),
           _swiperTarjetas(),
           SizedBox(height: 40),
           _footer(context),
         ],
-        //),
       ),
     );
   }
@@ -62,11 +61,12 @@ class HomePage extends StatelessWidget {
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
+          SizedBox(height: 10),
+          //StreamBuilder construye el widget con datos obtenidos por Bloc
           StreamBuilder(
-            stream: peliculasProvider.popularesStream,
+            stream: peliculasProvider
+                .popularesStream, //Aqui se indica de donde se están escuchando los datos
+
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
               if (snapshot.hasData) {
                 return MovieHorizontal(

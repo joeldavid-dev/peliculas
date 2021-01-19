@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:peliculas/src/pages/home_page.dart';
+import 'package:peliculas/src/pages/pelicula_detalle_page.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -21,10 +23,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
+      darkTheme: ThemeData.dark(),
       title: 'Películas',
       initialRoute: '/',
       routes: {
         '/': (BuildContext context) => HomePage(),
+        'detalle': (BuildContext context) => PeliculaDetallePage(),
       },
     );
   }
