@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/src/models/actores_model.dart';
 import 'package:peliculas/src/models/pelicula_model.dart';
+import 'package:peliculas/src/providers/peliculas_provider.dart';
 
 class PeliculaDetallePage extends StatelessWidget {
   @override
@@ -15,10 +17,7 @@ class PeliculaDetallePage extends StatelessWidget {
             SizedBox(height: 10),
             _posterTitulo(context, pelicula),
             _descripcion(pelicula),
-            _descripcion(pelicula),
-            _descripcion(pelicula),
-            _descripcion(pelicula),
-            _descripcion(pelicula),
+            _crearCasting(pelicula),
           ]),
         )
       ],
@@ -97,6 +96,49 @@ class PeliculaDetallePage extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       child: Text(pelicula.overview),
+    );
+  }
+
+  Widget _crearCasting(Pelicula pelicula) {
+    final peliProvider = new PeliculasProvider();
+
+    return FutureBuilder(
+        future: peliProvider.getCast(pelicula.id.toString()),
+        builder: (context, AsyncSnapshot<List> snapshot) {
+          if (snapshot.hasData) {
+            return _crearActoresPageView(snapshot.data);
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        });
+  }
+
+  Widget _crearActoresPageView(List<Actor> actores) {
+    return SizedBox(
+      height: 200,
+      child: PageView.builder(
+        pageSnapping: false,
+        controller: PageController(viewportFraction: 0.3, initialPage: 1),
+        itemCount: actores.length,
+        itemBuilder: (context, i) => _actorTarjeta(actores[i]),
+      ),
+    );
+  }
+
+  Widget _actorTarjeta(Actor actor) {
+    return Container(
+      child: Column(
+        children: [
+          CircleAvatar(
+            backgroundImage: NetworkImage(actor.getFoto()),
+            radius: 50,
+          ),
+          Text(
+            actor.name,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
     );
   }
 }
