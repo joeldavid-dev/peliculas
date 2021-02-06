@@ -12,7 +12,7 @@ class DataSearch extends SearchDelegate {
       IconButton(
           icon: Icon(Icons.clear),
           onPressed: () {
-            print('Clic!!!!!!!!!!!!!!!');
+            query = '';
           })
     ];
   }
